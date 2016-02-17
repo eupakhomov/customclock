@@ -35,14 +35,10 @@ RRRO
 YYRYYRYYRYY
 YYYY
 
-Scenario: Midnight
+Scenario: Midnight in incorrect format
 When the time is 24:00:00
-Then the clock should look like
-Y
-RRRR
-RRRR
-OOOOOOOOOOO
-OOOO
+Then the application should return error message
+Time must be in ISO-8601 format
 
 
 

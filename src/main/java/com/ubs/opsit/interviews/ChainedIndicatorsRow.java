@@ -8,16 +8,26 @@ package com.ubs.opsit.interviews;
  *
  */
 public class ChainedIndicatorsRow extends IndicatorsRow {
-	
+
 	private final long divisor;
-	private final char color;
-		
+	private final char firstColor;
+	private final char secondColor;
+	private final int secondColorPeriod;	
+	
 	public ChainedIndicatorsRow(long divisor, int length, 
 			char color) {
+		this(divisor, length, color, color, 0);
+	}	
+	
+	public ChainedIndicatorsRow(long divisor, int length, 
+			char firstColor, char secondColor, int secondColorPeriod) {		
 		super(length);
 		checkDivisor(divisor);
-		this.divisor = divisor;
-		this.color = color;
+		checkSecondColorPeriod(secondColorPeriod);
+		this.divisor = divisor; 
+		this.firstColor = firstColor;
+		this.secondColor = secondColor;
+		this.secondColorPeriod = secondColorPeriod;
 	}
 
 	/**
@@ -50,13 +60,22 @@ public class ChainedIndicatorsRow extends IndicatorsRow {
 	 */
 	@Override
 	protected char getColor(int position) {
-		return color;
+		return secondColorPeriod == 0 
+				? firstColor
+				: position % secondColorPeriod != 0 ? firstColor : secondColor;
 	}
 	
 	private void checkDivisor(long divisor) {
 		if(divisor <= 0) {
 			throw new IllegalArgumentException(
 					"Divisor must be positive integer");
+		}
+	}
+	
+	private void checkSecondColorPeriod(int secondColorPeriod) {
+		if(secondColorPeriod < 0) {
+			throw new IllegalArgumentException(
+					"Second color period must be positive integer or zero in case of one color");
 		}
 	}
 
