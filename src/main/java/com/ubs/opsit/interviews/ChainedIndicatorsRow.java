@@ -8,6 +8,17 @@ package com.ubs.opsit.interviews;
  *
  */
 public class ChainedIndicatorsRow extends IndicatorsRow {
+	
+	private final long divisor;
+	private final char color;
+		
+	public ChainedIndicatorsRow(long divisor, int length, 
+			char color) {
+		super(length);
+		checkDivisor(divisor);
+		this.divisor = divisor;
+		this.color = color;
+	}
 
 	/**
 	 * Get active indicators number in the row.
@@ -17,7 +28,7 @@ public class ChainedIndicatorsRow extends IndicatorsRow {
 	 */
 	@Override
 	protected int getActiveCount(long units) {
-		return 0;
+		return (int) (units / divisor);
 	}
 
 	/**
@@ -28,7 +39,7 @@ public class ChainedIndicatorsRow extends IndicatorsRow {
 	 */
 	@Override
 	protected long getUpdatedUnits(long units) {
-		return 0;
+		return units % divisor;
 	}
 
 	/**
@@ -39,6 +50,14 @@ public class ChainedIndicatorsRow extends IndicatorsRow {
 	 */
 	@Override
 	protected char getColor(int position) {
-		return ' ';
+		return color;
 	}
+	
+	private void checkDivisor(long divisor) {
+		if(divisor <= 0) {
+			throw new IllegalArgumentException(
+					"Divisor must be positive integer");
+		}
+	}
+
 }

@@ -15,7 +15,7 @@ public class TimeConverterImplTest {
 		rows[3] = new ChainedIndicatorsRow(60, 59, 'Y');
 	}	
 	
-	TimeConverterImpl testClock = new TimeConverterImpl(rows);
+	TimeConverterImpl testClock = new TimeConverterImpl(rows, "");
 
 
 	@Test
@@ -26,7 +26,7 @@ public class TimeConverterImplTest {
 				testClock.convertTime("11:59:01"));
 		assertEquals("GROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", 
 				testClock.convertTime("12:00:05"));
-		assertEquals("ORROOOOOOOOOOYYYYRYYYYRYYYYROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", 
+		assertEquals("ORROOOOOOOOOOYYYYYYYYYYYYYYYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", 
 				testClock.convertTime("13:15:17"));
 		assertEquals("GRRRRRRRRRRRRYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY", 
 				testClock.convertTime("23:59:00"));

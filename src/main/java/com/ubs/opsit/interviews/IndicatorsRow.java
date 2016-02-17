@@ -1,5 +1,7 @@
 package com.ubs.opsit.interviews;
 
+import java.util.Arrays;
+
 /**
  * Represents the row of indicators in Berlin clock 
  * (or in other clock based on the same principles) 
@@ -11,6 +13,16 @@ public abstract class IndicatorsRow {
 	
 	public static final char NO_COLOR = 'O';
 	
+	private final char[] output;
+	private final int length;
+	
+	public IndicatorsRow(int length) {		
+		checkLength(length);		
+		this.length = length;
+		this.output = new char[length];
+		Arrays.fill(this.output, NO_COLOR);
+	}
+	
 
 	/**
 	 * Setup with given time.
@@ -19,13 +31,29 @@ public abstract class IndicatorsRow {
 	 * @return units of time of appropriate dimension for next row.
 	 */
 	public long setup(long units) {
-		return 0;
+		checkUnits(units);
+		
+		int activeIndicators = getActiveCount(units);
+		
+		if(activeIndicators > length) {
+			throw new IllegalStateException(
+					"Rows must be set " +
+							"to produce number of indicators not greater than row length");
+		}
+		
+		for(int j = 0; j < activeIndicators; j++) {
+			output[j] = getColor(j + 1);
+		}
+		
+		return getUpdatedUnits(units);
+
 	}
 	
 	/**
 	 * Reset row output.
 	 */
-	public void reset() {		
+	public void reset() {
+		Arrays.fill(this.output, NO_COLOR);
 	}
 	
 	/**
@@ -34,7 +62,7 @@ public abstract class IndicatorsRow {
 	 * @return String with rendered row output.
 	 */
 	public String getOutput() {
-		return null;
+		return new String(output);
 	}
 	
 	/**
@@ -60,4 +88,18 @@ public abstract class IndicatorsRow {
 	 * @return char which represents color.
 	 */
 	protected abstract char getColor(int position);
+	
+	private void checkLength(int length) {
+		if(length <= 0) {
+			throw new IllegalArgumentException(
+					"Length must be positive integer");
+		}
+	}
+	
+	private void checkUnits(long units) {
+		if(units < 0) {
+			throw new IllegalArgumentException(
+					"Units must be positive long or zero");
+		}
+	}
 }
