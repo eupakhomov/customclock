@@ -5,35 +5,46 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class BlinkingIndicatorRowTest {
+	
+	private BlinkingIndicatorRow row = new BlinkingIndicatorRow(5, 'C');
 
 	@Test
 	public void testGetActiveCount() {
-		fail("Not yet implemented");
+		assertEquals(1, row.getActiveCount(5));
 	}
 
 	@Test
 	public void testGetUpdatedUnits() {
-		fail("Not yet implemented");
+		assertEquals(1l, row.getUpdatedUnits(1l)); 
 	}
 
 	@Test
 	public void testGetColor() {
-		fail("Not yet implemented");
+		assertEquals('C', row.getColor(1));
 	}
 
 	@Test
 	public void testSetup() {
-		fail("Not yet implemented");
+		long units = row.setup(5l);
+		assertEquals(5l, units);
 	}
 
 	@Test
 	public void testReset() {
-		fail("Not yet implemented");
+		row.setup(5l);
+		assertEquals("C", row.getOutput());
+		row.reset();
+		assertEquals("O", row.getOutput());
 	}
 
 	@Test
 	public void testGetOutput() {
-		fail("Not yet implemented");
+		row.setup(5l);
+		assertEquals("C", row.getOutput());
+		row.reset();
+		row.setup(4l);
+		assertEquals("O", row.getOutput());
+
 	}
 
 }
