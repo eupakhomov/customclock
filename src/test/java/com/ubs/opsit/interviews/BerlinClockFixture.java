@@ -28,7 +28,7 @@ public class BerlinClockFixture implements TimeUnitsSpec {
     	rows[3] = new ChainedIndicatorsRow(MINS_DIVISOR * 5, 11, 'Y', 'R', 3);
     	rows[4] = new ChainedIndicatorsRow(MINS_DIVISOR, 4, 'Y');
     	
-    	berlinClock = new TimeConverterImpl(rows);
+    	berlinClock = new TimeConverterImpl(rows, "\r\n");
     }
 
     @Test

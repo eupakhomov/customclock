@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
  */
 public class TimeConverterImpl implements TimeConverter {
 	
-	private static final String DEFAULT_OUTPUT_ROW_DELIMITER = "\r\n";
+	private static final String DEFAULT_OUTPUT_ROW_DELIMITER = System.lineSeparator();
 	
 	private final IndicatorsRow[] rows;
 	
